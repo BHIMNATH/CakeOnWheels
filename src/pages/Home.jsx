@@ -43,7 +43,7 @@ export default function Home({ onSelectCake, searchQuery }) {
         borderRadius: 'var(--radius-lg)',
         marginBottom: '60px',
         textAlign: 'center',
-        background: 'linear-gradient(135deg, rgba(26, 21, 18, 0.8), rgba(60, 30, 25, 0.6))',
+        background: 'var(--hero-bg)',
         border: '1px solid var(--glass-border)',
         position: 'relative',
         overflow: 'hidden'
@@ -76,7 +76,7 @@ export default function Home({ onSelectCake, searchQuery }) {
             fontSize: '3.2rem',
             lineHeight: 1.1,
             marginBottom: '16px',
-            background: 'linear-gradient(90deg, var(--text-main), var(--secondary))',
+            background: 'var(--hero-title-gradient)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             fontWeight: 800
@@ -87,7 +87,7 @@ export default function Home({ onSelectCake, searchQuery }) {
             fontSize: '1.2rem',
             maxWidth: '600px',
             margin: '0 auto 32px auto',
-            color: 'var(--text-muted)'
+            color: 'var(--hero-subtext-color)'
           }}>
             Explore premium homemade pastries and custom cakes listed by local baking chefs. 100% Cash on Delivery, delivered fresh to your door.
           </p>
@@ -104,8 +104,8 @@ export default function Home({ onSelectCake, searchQuery }) {
                 padding: '16px 24px 16px 50px',
                 borderRadius: '50px',
                 fontSize: '1.05rem',
-                border: '1.5px solid var(--bg-card-border)',
-                backgroundColor: 'rgba(255,255,255,0.07)'
+                border: '1.5px solid var(--input-border)',
+                backgroundColor: 'var(--input-bg)'
               }}
             />
             <span style={{ position: 'absolute', left: '20px', color: 'var(--text-muted)' }}>
