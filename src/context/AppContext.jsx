@@ -333,6 +333,44 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const signInWithGoogle = async (googleAccountData = {}) => {
+    setErrorMsg('');
+    if (isCloudMode) {
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin
+          }
+        });
+        if (error) throw error;
+        return { success: true };
+      } catch (err) {
+        setErrorMsg(err.message);
+        return { success: false, error: err.message };
+      }
+    } else {
+      const gName = googleAccountData.name || 'Google User';
+      const gEmail = googleAccountData.email || 'user.google@gmail.com';
+      const gRole = googleAccountData.role || 'buyer';
+
+      const googleUser = {
+        id: `usr-google-${Date.now()}`,
+        email: gEmail,
+        name: gName,
+        role: gRole,
+        address: 'Hill View, Kalpetta, Wayanad, Kerala',
+        phone: '+91 98765 43210',
+        isGoogleAuth: true,
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'
+      };
+
+      setCurrentUser(googleUser);
+      localStorage.setItem('local_user', JSON.stringify(googleUser));
+      return { success: true, user: googleUser };
+    }
+  };
+
   const logout = async () => {
     if (isCloudMode) {
       await supabase.auth.signOut();
@@ -558,6 +596,7 @@ export const AppProvider = ({ children }) => {
       errorMsg,
       login,
       registerUser,
+      signInWithGoogle,
       logout,
       addToCart,
       updateCartQuantity,
