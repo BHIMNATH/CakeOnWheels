@@ -1,7 +1,7 @@
 import React from 'react';
 import { Cake, Mail, Phone, MapPin, Heart } from 'lucide-react';
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
   return (
     <footer style={{
       backgroundColor: 'var(--glass-bg)',
@@ -31,7 +31,7 @@ export default function Footer() {
               <span>Cake on <span style={{ color: 'var(--secondary)' }}>Wheels</span></span>
             </div>
             <p style={{ fontSize: '0.95rem', marginBottom: '20px' }}>
-              Freshly baked artisanal cakes delivered right to your doorstep. Supporting local home bakers and professional chefs worldwide.
+              Freshly baked artisanal cakes delivered right to your doorstep. Supporting local home bakers and professional chefs in Wayanad, Kerala.
             </p>
           </div>
 
@@ -47,15 +47,25 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Policies */}
+          {/* Portals & Logins */}
           <div>
-            <h4 style={{ color: 'var(--text-main)', marginBottom: '20px', fontSize: '1.1rem' }}>Our Promises</h4>
+            <h4 style={{ color: 'var(--text-main)', marginBottom: '20px', fontSize: '1.1rem' }}>Portals & Logins</h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.95rem' }}>
-              <li>100% Cash on Delivery</li>
-              <li>Freshly Prepared Daily</li>
-              <li>Sanitized Kitchens</li>
-              <li>Flexible Cancelation</li>
-              <li>Local Seller Network</li>
+              <li>
+                <button onClick={() => onNavigate && onNavigate('auth')} className="btn-text" style={{ padding: 0 }}>
+                  Customer Login
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate && onNavigate('seller-auth')} className="btn-text" style={{ padding: 0 }}>
+                  Sellers & Bakers Login
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate && onNavigate('admin-auth')} className="btn-text" style={{ padding: 0, color: 'var(--primary)', fontWeight: 600 }}>
+                  Admin Login
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -65,7 +75,7 @@ export default function Footer() {
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '0.95rem' }}>
               <li className="flex-center" style={{ justifyContent: 'flex-start', gap: '10px' }}>
                 <Phone size={16} style={{ color: 'var(--primary)' }} />
-                <span>+1 (555) 762-2253</span>
+                <span>+91 94950 00123</span>
               </li>
               <li className="flex-center" style={{ justifyContent: 'flex-start', gap: '10px' }}>
                 <Mail size={16} style={{ color: 'var(--primary)' }} />
@@ -73,7 +83,7 @@ export default function Footer() {
               </li>
               <li className="flex-center" style={{ justifyContent: 'flex-start', gap: '10px' }}>
                 <MapPin size={16} style={{ color: 'var(--primary)' }} />
-                <span>Bakers Lane, Sweet City, NY</span>
+                <span>Kalpetta, Wayanad, Kerala</span>
               </li>
             </ul>
           </div>
@@ -84,12 +94,16 @@ export default function Footer() {
         <div className="flex-between" style={{
           flexWrap: 'wrap',
           gap: '16px',
-          fontSize: '0.9rem'
+          fontSize: '0.85rem'
         }}>
           <span>&copy; {new Date().getFullYear()} Cake on Wheels. All rights reserved.</span>
-          <span className="flex-center" style={{ gap: '6px' }}>
-            Handcrafted with <Heart size={14} style={{ color: 'var(--primary)', fill: 'var(--primary)' }} /> for cake lovers.
-          </span>
+          <div className="flex-center gap-md" style={{ flexWrap: 'wrap' }}>
+            <button onClick={() => onNavigate && onNavigate('auth')} className="btn-text" style={{ fontSize: '0.8rem' }}>Login</button>
+            <span style={{ color: 'var(--glass-border)' }}>|</span>
+            <button onClick={() => onNavigate && onNavigate('seller-auth')} className="btn-text" style={{ fontSize: '0.8rem' }}>Sellers Login</button>
+            <span style={{ color: 'var(--glass-border)' }}>|</span>
+            <button onClick={() => onNavigate && onNavigate('admin-auth')} className="btn-text" style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 600 }}>Admin Login</button>
+          </div>
         </div>
       </div>
     </footer>
