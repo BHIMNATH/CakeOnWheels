@@ -135,7 +135,7 @@ export default function Navbar({ onNavigate, currentPage, onSearch }) {
             </div>
           ) : (
             <div className="flex-center gap-md">
-              <button onClick={() => navTo('partner-auth')} className="btn-text" style={{ fontSize: '0.85rem' }}>
+              <button onClick={() => navTo('seller-auth')} className="btn-text" style={{ fontSize: '0.85rem' }}>
                 Sellers Portal
               </button>
               <button onClick={() => navTo('auth')} className="btn btn-primary" style={{ padding: '8px 18px', borderRadius: '50px', fontSize: '0.85rem' }}>

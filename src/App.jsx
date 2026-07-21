@@ -7,6 +7,8 @@ import CakeDetails from './pages/CakeDetails';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Auth from './pages/Auth';
+import SellerAuth from './pages/SellerAuth';
+import AdminAuth from './pages/AdminAuth';
 import PartnerAuth from './pages/PartnerAuth';
 import BuyerDashboard from './pages/BuyerDashboard';
 import SellerDashboard from './pages/SellerDashboard';
@@ -89,6 +91,12 @@ function AppContent() {
         )}
         {currentPage === 'auth' && (
           <Auth onNavigate={handleNavigate} />
+        )}
+        {currentPage === 'seller-auth' && (
+          <SellerAuth onNavigate={handleNavigate} />
+        )}
+        {currentPage === 'admin-auth' && (
+          <AdminAuth onNavigate={handleNavigate} />
         )}
         {currentPage === 'partner-auth' && (
           <PartnerAuth onNavigate={handleNavigate} />

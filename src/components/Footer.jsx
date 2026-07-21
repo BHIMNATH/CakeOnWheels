@@ -57,13 +57,13 @@ export default function Footer({ onNavigate }) {
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate && onNavigate('partner-auth')} className="btn-text" style={{ padding: 0 }}>
+                <button onClick={() => onNavigate && onNavigate('seller-auth')} className="btn-text" style={{ padding: 0 }}>
                   Sellers & Bakers Login
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate && onNavigate('partner-auth')} className="btn-text" style={{ padding: 0, color: 'var(--primary)', fontWeight: 600 }}>
-                  Admin Login (Page Bottom)
+                <button onClick={() => onNavigate && onNavigate('admin-auth')} className="btn-text" style={{ padding: 0, color: 'var(--primary)', fontWeight: 600 }}>
+                  Admin Login
                 </button>
               </li>
             </ul>
@@ -100,9 +100,9 @@ export default function Footer({ onNavigate }) {
           <div className="flex-center gap-md" style={{ flexWrap: 'wrap' }}>
             <button onClick={() => onNavigate && onNavigate('auth')} className="btn-text" style={{ fontSize: '0.8rem' }}>Login</button>
             <span style={{ color: 'var(--glass-border)' }}>|</span>
-            <button onClick={() => onNavigate && onNavigate('partner-auth')} className="btn-text" style={{ fontSize: '0.8rem' }}>Sellers Login</button>
+            <button onClick={() => onNavigate && onNavigate('seller-auth')} className="btn-text" style={{ fontSize: '0.8rem' }}>Sellers Login</button>
             <span style={{ color: 'var(--glass-border)' }}>|</span>
-            <button onClick={() => onNavigate && onNavigate('partner-auth')} className="btn-text" style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 600 }}>Admin Login (Bottom of Page)</button>
+            <button onClick={() => onNavigate && onNavigate('admin-auth')} className="btn-text" style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: 600 }}>Admin Login</button>
           </div>
         </div>
       </div>
