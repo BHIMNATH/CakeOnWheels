@@ -139,7 +139,7 @@ export default function Navbar({ onNavigate, currentPage, onSearch }) {
                 Sellers Portal
               </button>
               <button onClick={() => navTo('auth')} className="btn btn-primary" style={{ padding: '8px 18px', borderRadius: '50px', fontSize: '0.85rem' }}>
-                <User size={16} /> Buyer Login
+                <User size={16} /> Login
               </button>
             </div>
           )}

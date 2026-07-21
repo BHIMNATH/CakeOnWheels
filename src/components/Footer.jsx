@@ -53,7 +53,7 @@ export default function Footer({ onNavigate }) {
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.95rem' }}>
               <li>
                 <button onClick={() => onNavigate && onNavigate('auth')} className="btn-text" style={{ padding: 0 }}>
-                  Customer / Buyer Login
+                  Customer Login
                 </button>
               </li>
               <li>
@@ -98,7 +98,7 @@ export default function Footer({ onNavigate }) {
         }}>
           <span>&copy; {new Date().getFullYear()} Cake on Wheels. All rights reserved.</span>
           <div className="flex-center gap-md" style={{ flexWrap: 'wrap' }}>
-            <button onClick={() => onNavigate && onNavigate('auth')} className="btn-text" style={{ fontSize: '0.8rem' }}>Buyer Login</button>
+            <button onClick={() => onNavigate && onNavigate('auth')} className="btn-text" style={{ fontSize: '0.8rem' }}>Login</button>
             <span style={{ color: 'var(--glass-border)' }}>|</span>
             <button onClick={() => onNavigate && onNavigate('partner-auth')} className="btn-text" style={{ fontSize: '0.8rem' }}>Sellers Login</button>
             <span style={{ color: 'var(--glass-border)' }}>|</span>
