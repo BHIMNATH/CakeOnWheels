@@ -1,9 +1,19 @@
+/**
+ * @file SellerAuth.jsx
+ * @description Seller Authentication and Storefront Registration view.
+ * Enables bakers and chefs to register their shop and log into their dashboard.
+ * 
+ * Developed by Aswin Bhim Nath
+ */
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Store, Mail, Lock, Phone, User, KeyRound } from 'lucide-react';
 
 export default function SellerAuth({ onNavigate }) {
+  // Access global context auth dispatchers
   const { login, registerUser } = useApp();
+
+  // Authentication & registration input states
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

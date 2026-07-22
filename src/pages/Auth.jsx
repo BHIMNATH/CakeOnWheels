@@ -1,17 +1,27 @@
+/**
+ * @file Auth.jsx
+ * @description Customer/Buyer Authentication portal.
+ * Integrates email login/signup and Google OAuth Sign-In handlers.
+ * 
+ * Developed by Aswin Bhim Nath
+ */
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { User, Mail, Lock, Store, Phone, MapPin, KeyRound, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export default function Auth({ onNavigate }) {
+  // Retrieve global authentication dispatchers from AppContext
   const { login, registerUser, signInWithGoogle, isCloudMode, errorMsg } = useApp();
+
+  // Basic authentication states
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   
-  // Role & Extra details
-  const [role, setRole] = useState('buyer'); // 'buyer' | 'seller'
+  // Buyer-specific customization attributes
+  const [role, setRole] = useState('buyer'); // Defaults to customer account 'buyer'
   const [address, setAddress] = useState('');
   const [shopName, setShopName] = useState('');
 

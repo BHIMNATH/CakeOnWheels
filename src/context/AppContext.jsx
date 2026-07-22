@@ -1,3 +1,11 @@
+/**
+ * @file AppContext.jsx
+ * @description Application Global State & Data Context.
+ * Manages marketplace datasets, shopping cart item states, order queues,
+ * and user authentication profiles (supporting Supabase Cloud sync & local storage persistence).
+ * 
+ * Developed by Aswin Bhim Nath
+ */
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { supabase, isSupabaseConfigured } from '../supabaseClient';
 
