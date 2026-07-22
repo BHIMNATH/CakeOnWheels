@@ -1,8 +1,10 @@
 /**
- * ==========================================================
- * CAKEONWHEELS MVP - HOME MARKETPLACE VIEW
- * Code By Aswin Bhim Nath
- * ==========================================================
+ * @file Home.jsx
+ * @description Main Marketplace Home component for Cake on Wheels.
+ * Displays a catalog of available customized cakes with category filtering,
+ * rating filters, text search, special discounted offers, and featured highlights.
+ * 
+ * Developed by Aswin Bhim Nath
  */
 import React, { useState, useMemo } from 'react';
 import { useApp } from '../context/AppContext';
@@ -12,12 +14,19 @@ import { Search, SlidersHorizontal, Sparkles } from 'lucide-react';
 const CATEGORIES = ['All', 'Chocolate', 'Fruit & Berries', 'Classic Bakes', 'Vegan & Healthy', 'Caramel & Crunch'];
 
 export default function Home({ onSelectCake, searchQuery }) {
+  // Retrieve global states and cakes dataset from app context provider
   const { cakes } = useApp();
+  
+  // Local filtering states for the customer catalog grid
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [localSearch, setLocalSearch] = useState('');
   const [minRating, setMinRating] = useState(0);
 
-  // Filter and Search logic
+  /**
+   * Memoized catalog filtering logic.
+   * Compares each cake against active category selection, textual queries
+   * (supporting name, description, or seller shop name match), and minimum rating criteria.
+   */
   const filteredCakes = useMemo(() => {
     return cakes.filter(cake => {
       const matchesCategory = selectedCategory === 'All' || cake.category === selectedCategory;
@@ -30,12 +39,16 @@ export default function Home({ onSelectCake, searchQuery }) {
     });
   }, [cakes, selectedCategory, localSearch, searchQuery, minRating]);
 
-  // Extract special sales (cakes with discounts)
+  /**
+   * Extract promo campaign items (cakes listing a positive discount percentage)
+   */
   const specialSales = useMemo(() => {
     return cakes.filter(cake => cake.discount > 0);
   }, [cakes]);
 
-  // Extract highly rated cakes (rating >= 4.8)
+  /**
+   * Sort and extract top three cakes matching highest customer ratings
+   */
   const topRated = useMemo(() => {
     return [...cakes].sort((a, b) => b.rating - a.rating).slice(0, 3);
   }, [cakes]);

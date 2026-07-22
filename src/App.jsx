@@ -1,8 +1,9 @@
 /**
- * ==========================================================
- * CAKEONWHEELS MVP - APPLICATION SHELL AND MAIN ENTRYPOINT
- * Code By Aswin Bhim Nath
- * ==========================================================
+ * @file App.jsx
+ * @description Main application component for Cake on Wheels.
+ * Defines page-level state routing, global context providers, and layout styling.
+ * 
+ * Developed by Aswin Bhim Nath
  */
 import React, { useState } from 'react';
 import { AppProvider, useApp } from './context/AppContext';

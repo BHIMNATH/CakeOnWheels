@@ -1,15 +1,19 @@
 /**
- * ==========================================================
- * CAKEONWHEELS MVP - ADMIN LOGIN PORTAL
- * Code By Aswin Bhim Nath
- * ==========================================================
+ * @file AdminAuth.jsx
+ * @description Dedicated Administrator Login Portal.
+ * Limits administrative console operations to authorized staff.
+ * 
+ * Developed by Aswin Bhim Nath
  */
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { ShieldCheck, Mail, Lock, KeyRound } from 'lucide-react';
 
 export default function AdminAuth({ onNavigate }) {
+  // Access global context login dispatcher
   const { login } = useApp();
+
+  // Admin authentication input states
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
