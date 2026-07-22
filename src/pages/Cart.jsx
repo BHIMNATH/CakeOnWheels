@@ -66,6 +66,8 @@ export default function Cart({ onNavigate, onSetTotals }) {
     return baseDelivery;
   }, [cart, subtotal, selectedLocation]);
 
+  const gstAmount = useMemo(() => subtotal * 0.05, [subtotal]);
+
   const discountAmount = useMemo(() => {
     if (!activeCoupon) return 0;
     if (activeCoupon.discount_type === 'percent') {
@@ -74,7 +76,7 @@ export default function Cart({ onNavigate, onSetTotals }) {
     return Math.min(subtotal, activeCoupon.discount_value);
   }, [activeCoupon, subtotal]);
 
-  const total = subtotal - discountAmount + deliveryFee;
+  const total = subtotal - discountAmount + deliveryFee + gstAmount;
 
   const handleApplyCoupon = (e) => {
     e.preventDefault();
@@ -95,6 +97,7 @@ export default function Cart({ onNavigate, onSetTotals }) {
     onSetTotals({
       subtotal,
       deliveryFee,
+      gstAmount,
       discountAmount,
       total,
       couponCode: activeCoupon ? activeCoupon.code : null
@@ -245,6 +248,11 @@ export default function Cart({ onNavigate, onSetTotals }) {
             <div className="flex-between">
               <span>Delivery Fee</span>
               <span>{deliveryFee === 0 ? 'FREE' : `₹${deliveryFee.toFixed(0)}`}</span>
+            </div>
+
+            <div className="flex-between">
+              <span>GST & Restaurant Charges (5%)</span>
+              <span>₹{gstAmount.toFixed(0)}</span>
             </div>
 
             {deliveryFee > 0 && (

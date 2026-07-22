@@ -282,6 +282,10 @@ export default function Checkout({ onNavigate, totals }) {
               <span>Delivery Fee</span>
               <span>{totals.deliveryFee === 0 ? 'FREE' : `₹${totals.deliveryFee.toFixed(0)}`}</span>
             </div>
+            <div className="flex-between">
+              <span>GST & Restaurant Charges (5%)</span>
+              <span>₹{(totals.gstAmount || 0).toFixed(0)}</span>
+            </div>
             <div className="flex-between" style={{ fontWeight: 'bold', fontSize: '1.15rem', borderTop: '1px solid var(--glass-border)', paddingTop: '12px', marginTop: '6px' }}>
               <span>Grand Total</span>
               <span style={{ color: 'var(--secondary)' }}>₹{totals.total.toFixed(0)}</span>
