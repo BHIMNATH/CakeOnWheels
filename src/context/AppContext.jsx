@@ -1,3 +1,9 @@
+/**
+ * ==========================================================
+ * CAKEONWHEELS MVP - APPLICATION GLOBAL STATE & DATA CONTEXT
+ * Code By Aswin Bhim Nath
+ * ==========================================================
+ */
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { supabase, isSupabaseConfigured } from '../supabaseClient';
 

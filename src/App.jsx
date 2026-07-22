@@ -1,3 +1,9 @@
+/**
+ * ==========================================================
+ * CAKEONWHEELS MVP - APPLICATION SHELL AND MAIN ENTRYPOINT
+ * Code By Aswin Bhim Nath
+ * ==========================================================
+ */
 import React, { useState } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import Navbar from './components/Navbar';

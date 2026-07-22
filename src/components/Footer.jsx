@@ -1,3 +1,9 @@
+/**
+ * ==========================================================
+ * CAKEONWHEELS MVP - FOOTER COMPONENT
+ * Code By Aswin Bhim Nath
+ * ==========================================================
+ */
 import React from 'react';
 import { Cake, Mail, Phone, MapPin, Heart } from 'lucide-react';
 
@@ -96,7 +102,7 @@ export default function Footer({ onNavigate }) {
           gap: '16px',
           fontSize: '0.85rem'
         }}>
-          <span>&copy; {new Date().getFullYear()} Cake on Wheels. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} Cake on Wheels. Code By Aswin Bhim Nath. All rights reserved.</span>
           <div className="flex-center gap-md" style={{ flexWrap: 'wrap' }}>
             <button onClick={() => onNavigate && onNavigate('auth')} className="btn-text" style={{ fontSize: '0.8rem' }}>Login</button>
             <span style={{ color: 'var(--glass-border)' }}>|</span>

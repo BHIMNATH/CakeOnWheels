@@ -1,3 +1,9 @@
+/**
+ * ==========================================================
+ * CAKEONWHEELS MVP - SELLER LOGIN PORTAL
+ * Code By Aswin Bhim Nath
+ * ==========================================================
+ */
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Store, Mail, Lock, Phone, User, KeyRound } from 'lucide-react';

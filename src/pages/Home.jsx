@@ -1,3 +1,9 @@
+/**
+ * ==========================================================
+ * CAKEONWHEELS MVP - HOME MARKETPLACE VIEW
+ * Code By Aswin Bhim Nath
+ * ==========================================================
+ */
 import React, { useState, useMemo } from 'react';
 import { useApp } from '../context/AppContext';
 import CakeCard from '../components/CakeCard';
@@ -69,9 +75,14 @@ export default function Home({ onSelectCake, searchQuery }) {
         }}></div>
 
         <div style={{ position: 'relative', zIndex: 1 }}>
-          <span className="badge badge-secondary" style={{ marginBottom: '16px', display: 'inline-flex', gap: '6px' }}>
-            <Sparkles size={14} /> Local Sellers & Bakers Platform
-          </span>
+          <div className="flex-center gap-sm" style={{ marginBottom: '16px', flexWrap: 'wrap' }}>
+            <span className="badge badge-secondary" style={{ gap: '6px' }}>
+              <Sparkles size={14} /> Local Sellers & Bakers Platform
+            </span>
+            <span className="badge badge-primary" style={{ gap: '6px' }}>
+              Code By Aswin Bhim Nath
+            </span>
+          </div>
           <h1 style={{
             fontSize: '3.2rem',
             lineHeight: 1.1,

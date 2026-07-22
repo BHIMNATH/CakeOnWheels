@@ -1,3 +1,9 @@
+/**
+ * ==========================================================
+ * CAKEONWHEELS MVP - CUSTOMER LOGIN PORTAL
+ * Code By Aswin Bhim Nath
+ * ==========================================================
+ */
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { User, Mail, Lock, Store, Phone, MapPin, KeyRound, Sparkles, CheckCircle2 } from 'lucide-react';
