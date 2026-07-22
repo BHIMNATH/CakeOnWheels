@@ -9,11 +9,12 @@ import {
   X, 
   Moon, 
   Sun, 
-  Cake 
+  Cake,
+  MapPin
 } from 'lucide-react';
 
 export default function Navbar({ onNavigate, currentPage, onSearch }) {
-  const { currentUser, logout, cart } = useApp();
+  const { currentUser, logout, cart, selectedLocation, updateLocation } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState('dark');
   const [searchVal, setSearchVal] = useState('');
@@ -48,17 +49,52 @@ export default function Navbar({ onNavigate, currentPage, onSearch }) {
       padding: '12px 24px'
     }}>
       <div className="flex-between" style={{ width: '100%' }}>
-        {/* Brand Logo */}
-        <div 
-          onClick={() => navTo('home')} 
-          className="flex-center gap-sm" 
-          style={{ cursor: 'pointer', fontWeight: 800, fontSize: '1.4rem', color: 'var(--text-main)' }}
-        >
-          <Cake size={28} style={{ color: 'var(--primary)' }} />
-          <span>Cake on <span style={{ color: 'var(--secondary)' }}>Wheels</span></span>
-          {!isCloudModeFallback() && (
-            <span style={{ fontSize: '0.6rem', padding: '2px 6px', background: 'rgba(16, 185, 129, 0.15)', color: 'rgb(52, 211, 153)', borderRadius: '4px', border: '1px solid rgb(16, 185, 129)', marginLeft: '6px' }}>CLOUD</span>
-          )}
+        <div className="flex-center gap-md">
+          {/* Brand Logo */}
+          <div 
+            onClick={() => navTo('home')} 
+            className="flex-center gap-sm" 
+            style={{ cursor: 'pointer', fontWeight: 800, fontSize: '1.4rem', color: 'var(--text-main)' }}
+          >
+            <Cake size={28} style={{ color: 'var(--primary)' }} />
+            <span>Cake on <span style={{ color: 'var(--secondary)' }}>Wheels</span></span>
+            {!isCloudModeFallback() && (
+              <span style={{ fontSize: '0.6rem', padding: '2px 6px', background: 'rgba(16, 185, 129, 0.15)', color: 'rgb(52, 211, 153)', borderRadius: '4px', border: '1px solid rgb(16, 185, 129)', marginLeft: '6px' }}>CLOUD</span>
+            )}
+          </div>
+
+          {/* Locality Location Selector */}
+          <div className="flex-center gap-xs location-selector-badge" style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid var(--glass-border)',
+            borderRadius: '50px',
+            padding: '6px 14px',
+            marginLeft: '12px'
+          }}>
+            <MapPin size={15} style={{ color: 'var(--primary)' }} />
+            <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginRight: '4px', fontWeight: 600 }}>Deliver to:</span>
+            <select
+              value={selectedLocation}
+              onChange={(e) => updateLocation(e.target.value)}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--text-main)',
+                fontSize: '0.82rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                outline: 'none',
+                paddingRight: '6px'
+              }}
+            >
+              <option value="Kalpetta" style={{ background: '#1c1917', color: '#fff' }}>Kalpetta</option>
+              <option value="Sulthan Bathery" style={{ background: '#1c1917', color: '#fff' }}>Sulthan Bathery</option>
+              <option value="Mananthavady" style={{ background: '#1c1917', color: '#fff' }}>Mananthavady</option>
+              <option value="Vythiri" style={{ background: '#1c1917', color: '#fff' }}>Vythiri</option>
+              <option value="Meppadi" style={{ background: '#1c1917', color: '#fff' }}>Meppadi</option>
+              <option value="Ambalavayal" style={{ background: '#1c1917', color: '#fff' }}>Ambalavayal</option>
+            </select>
+          </div>
         </div>
 
         {/* Global Search Bar (Only shown when home page is active) */}
@@ -188,6 +224,36 @@ export default function Navbar({ onNavigate, currentPage, onSearch }) {
           border: '1px solid var(--glass-border)',
           borderRadius: 'var(--radius-md)'
         }}>
+          {/* Mobile Location Selector */}
+          <div className="flex-center gap-xs" style={{
+            padding: '10px 0',
+            borderBottom: '1px solid var(--glass-border)',
+            justifyContent: 'flex-start'
+          }}>
+            <MapPin size={16} style={{ color: 'var(--primary)' }} />
+            <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginRight: '4px' }}>Deliver to:</span>
+            <select
+              value={selectedLocation}
+              onChange={(e) => { updateLocation(e.target.value); setMobileMenuOpen(false); }}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--text-main)',
+                fontSize: '0.85rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                outline: 'none'
+              }}
+            >
+              <option value="Kalpetta" style={{ background: '#1c1917', color: '#fff' }}>Kalpetta</option>
+              <option value="Sulthan Bathery" style={{ background: '#1c1917', color: '#fff' }}>Sulthan Bathery</option>
+              <option value="Mananthavady" style={{ background: '#1c1917', color: '#fff' }}>Mananthavady</option>
+              <option value="Vythiri" style={{ background: '#1c1917', color: '#fff' }}>Vythiri</option>
+              <option value="Meppadi" style={{ background: '#1c1917', color: '#fff' }}>Meppadi</option>
+              <option value="Ambalavayal" style={{ background: '#1c1917', color: '#fff' }}>Ambalavayal</option>
+            </select>
+          </div>
+
           <button onClick={() => navTo('home')} className="btn-text" style={{ textAlign: 'left', padding: '10px 0' }}>Browse Cakes</button>
           
           {currentUser && currentUser.role === 'buyer' && (

@@ -1,9 +1,16 @@
+/**
+ * @file Checkout.jsx
+ * @description Delivery Checkout validation form.
+ * Captures recipient contact info, delivery dates, times, and pre-populates locations.
+ * 
+ * Developed by Aswin Bhim Nath
+ */
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { ArrowLeft, CreditCard, ShoppingBag, Truck, CheckCircle2 } from 'lucide-react';
 
 export default function Checkout({ onNavigate, totals }) {
-  const { currentUser, placeOrder } = useApp();
+  const { currentUser, placeOrder, selectedLocation } = useApp();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
@@ -15,14 +22,16 @@ export default function Checkout({ onNavigate, totals }) {
   const [loadingOrder, setLoadingOrder] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Load defaults from current user
+  // Load defaults from current user or selected header location
   useEffect(() => {
     if (currentUser) {
       setName(currentUser.name || '');
       setPhone(currentUser.phone || '');
-      setAddress(currentUser.address || '');
+      setAddress(currentUser.address || selectedLocation || '');
+    } else {
+      setAddress(selectedLocation || '');
     }
-  }, [currentUser]);
+  }, [currentUser, selectedLocation]);
 
   // Set minimum date to tomorrow
   const getMinDate = () => {

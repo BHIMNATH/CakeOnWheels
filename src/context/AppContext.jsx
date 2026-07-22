@@ -113,6 +113,14 @@ export const AppProvider = ({ children }) => {
   const [cakes, setCakes] = useState([]);
   const [cart, setCart] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState(() => {
+    return localStorage.getItem('delivery_location') || 'Kalpetta';
+  });
+
+  const updateLocation = (loc) => {
+    setSelectedLocation(loc);
+    localStorage.setItem('delivery_location', loc);
+  };
   const [coupons, setCoupons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isCloudMode, setIsCloudMode] = useState(false);
@@ -602,6 +610,8 @@ export const AppProvider = ({ children }) => {
       loading,
       isCloudMode,
       errorMsg,
+      selectedLocation,
+      updateLocation,
       login,
       registerUser,
       signInWithGoogle,
