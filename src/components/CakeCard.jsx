@@ -11,10 +11,10 @@ export default function CakeCard({ cake, onSelect }) {
 
   const handleQuickAdd = (e) => {
     e.stopPropagation(); // Avoid triggering card click navigation
-    addToCart(cake, '1 lbs', '', 1);
+    addToCart(cake, '0.5 Kg', '', 1);
     
     // Quick notification animation could go here
-    alert(`Added 1 lbs of ${cake.name} to your cart!`);
+    alert(`Added 0.5 Kg of ${cake.name} to your cart!`);
   };
 
   return (

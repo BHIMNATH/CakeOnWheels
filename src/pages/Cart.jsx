@@ -15,7 +15,7 @@ export default function Cart({ onNavigate, onSetTotals }) {
         ? item.cake.price * (1 - item.cake.discount / 100)
         : item.cake.price;
       
-      const surcharge = item.weight === '2 lbs' ? 350.00 : item.weight === '5 lbs' ? 1000.00 : 0;
+      const surcharge = item.weight === '1 Kg' ? 350.00 : item.weight === '2 Kg' ? 800.00 : 0;
       return acc + (basePrice + surcharge) * item.quantity;
     }, 0);
   }, [cart]);
@@ -87,7 +87,7 @@ export default function Cart({ onNavigate, onSetTotals }) {
             const basePrice = item.cake.discount > 0 
               ? item.cake.price * (1 - item.cake.discount / 100)
               : item.cake.price;
-            const surcharge = item.weight === '2 lbs' ? 350.00 : item.weight === '5 lbs' ? 1000.00 : 0;
+            const surcharge = item.weight === '1 Kg' ? 350.00 : item.weight === '2 Kg' ? 800.00 : 0;
             const itemUnitPrice = basePrice + surcharge;
             
             return (
