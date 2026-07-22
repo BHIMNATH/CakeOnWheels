@@ -1,9 +1,14 @@
+/**
+ * @file Checkout.jsx
+ * @description Delivery Checkout validation form.
+ * Captures recipient contact info, delivery dates, times, and pre-populates locations.
+ */
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { ArrowLeft, CreditCard, ShoppingBag, Truck, CheckCircle2 } from 'lucide-react';
 
 export default function Checkout({ onNavigate, totals }) {
-  const { currentUser, placeOrder } = useApp();
+  const { currentUser, placeOrder, selectedLocation } = useApp();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
@@ -15,14 +20,16 @@ export default function Checkout({ onNavigate, totals }) {
   const [loadingOrder, setLoadingOrder] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Load defaults from current user
+  // Load defaults from current user or selected header location
   useEffect(() => {
     if (currentUser) {
       setName(currentUser.name || '');
       setPhone(currentUser.phone || '');
-      setAddress(currentUser.address || '');
+      setAddress(currentUser.address || selectedLocation || '');
+    } else {
+      setAddress(selectedLocation || '');
     }
-  }, [currentUser]);
+  }, [currentUser, selectedLocation]);
 
   // Set minimum date to tomorrow
   const getMinDate = () => {
@@ -274,6 +281,10 @@ export default function Checkout({ onNavigate, totals }) {
             <div className="flex-between">
               <span>Delivery Fee</span>
               <span>{totals.deliveryFee === 0 ? 'FREE' : `₹${totals.deliveryFee.toFixed(0)}`}</span>
+            </div>
+            <div className="flex-between">
+              <span>GST & Restaurant Charges (5%)</span>
+              <span>₹{(totals.gstAmount || 0).toFixed(0)}</span>
             </div>
             <div className="flex-between" style={{ fontWeight: 'bold', fontSize: '1.15rem', borderTop: '1px solid var(--glass-border)', paddingTop: '12px', marginTop: '6px' }}>
               <span>Grand Total</span>

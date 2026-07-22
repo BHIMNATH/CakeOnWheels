@@ -2,8 +2,6 @@
  * @file SellerAuth.jsx
  * @description Seller Authentication and Storefront Registration view.
  * Enables bakers and chefs to register their shop and log into their dashboard.
- * 
- * Developed by Aswin Bhim Nath
  */
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';

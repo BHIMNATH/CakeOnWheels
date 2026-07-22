@@ -3,8 +3,6 @@
  * @description Main Marketplace Home component for Cake on Wheels.
  * Displays a catalog of available customized cakes with category filtering,
  * rating filters, text search, special discounted offers, and featured highlights.
- * 
- * Developed by Aswin Bhim Nath
  */
 import React, { useState, useMemo } from 'react';
 import { useApp } from '../context/AppContext';
@@ -15,7 +13,7 @@ const CATEGORIES = ['All', 'Chocolate', 'Fruit & Berries', 'Classic Bakes', 'Veg
 
 export default function Home({ onSelectCake, searchQuery }) {
   // Retrieve global states and cakes dataset from app context provider
-  const { cakes } = useApp();
+  const { cakes, selectedLocation } = useApp();
   
   // Local filtering states for the customer catalog grid
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -26,9 +24,10 @@ export default function Home({ onSelectCake, searchQuery }) {
    * Memoized catalog filtering logic.
    * Compares each cake against active category selection, textual queries
    * (supporting name, description, or seller shop name match), and minimum rating criteria.
+   * Sorts the filtered collection to place nearest local bakeries at the top of the grid.
    */
   const filteredCakes = useMemo(() => {
-    return cakes.filter(cake => {
+    const matched = cakes.filter(cake => {
       const matchesCategory = selectedCategory === 'All' || cake.category === selectedCategory;
       const finalSearch = (searchQuery || localSearch).toLowerCase();
       const matchesSearch = cake.name.toLowerCase().includes(finalSearch) || 
@@ -37,7 +36,13 @@ export default function Home({ onSelectCake, searchQuery }) {
       const matchesRating = cake.rating >= minRating;
       return matchesCategory && matchesSearch && matchesRating;
     });
-  }, [cakes, selectedCategory, localSearch, searchQuery, minRating]);
+
+    return [...matched].sort((a, b) => {
+      const isANearest = a.seller_location === selectedLocation ? 1 : 0;
+      const isBNearest = b.seller_location === selectedLocation ? 1 : 0;
+      return isBNearest - isANearest;
+    });
+  }, [cakes, selectedCategory, localSearch, searchQuery, minRating, selectedLocation]);
 
   /**
    * Extract promo campaign items (cakes listing a positive discount percentage)
@@ -91,9 +96,6 @@ export default function Home({ onSelectCake, searchQuery }) {
           <div className="flex-center gap-sm" style={{ marginBottom: '16px', flexWrap: 'wrap' }}>
             <span className="badge badge-secondary" style={{ gap: '6px' }}>
               <Sparkles size={14} /> Local Sellers & Bakers Platform
-            </span>
-            <span className="badge badge-primary" style={{ gap: '6px' }}>
-              Code By Aswin Bhim Nath
             </span>
           </div>
           <h1 style={{

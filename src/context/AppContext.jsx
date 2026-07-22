@@ -3,8 +3,6 @@
  * @description Application Global State & Data Context.
  * Manages marketplace datasets, shopping cart item states, order queues,
  * and user authentication profiles (supporting Supabase Cloud sync & local storage persistence).
- * 
- * Developed by Aswin Bhim Nath
  */
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { supabase, isSupabaseConfigured } from '../supabaseClient';
@@ -23,7 +21,7 @@ const MOCK_CAKES = [
     id: 'cake-1',
     name: 'Wayanad Honey & Cardamom Cake',
     description: 'Moist cardamom-infused sponge cake sweetened with organic forest honey sourced directly from the hills of Wayanad.',
-    price: 499.00,
+    price: 699.00,
     image_url: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80',
     category: 'Classic Bakes',
     rating: 4.9,
@@ -32,6 +30,7 @@ const MOCK_CAKES = [
     stock: 8,
     seller_id: 'usr-2',
     seller_name: 'Malabar Whisk',
+    seller_location: 'Kalpetta',
     reviews: [
       { user: 'Bheem', rating: 5, comment: 'Authentic forest honey flavor! Perfect sweetness.' },
       { user: 'Anjali', rating: 4.8, comment: 'Highly recommended for Kerala tea-time.' }
@@ -41,7 +40,7 @@ const MOCK_CAKES = [
     id: 'cake-2',
     name: 'Malabar Spiced Plum Cake',
     description: 'Traditional Malabar Christmas plum cake loaded with rum-soaked raisins, dates, candied peels, and warm spices.',
-    price: 599.00,
+    price: 750.00,
     image_url: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&auto=format&fit=crop&q=80',
     category: 'Chocolate',
     rating: 4.8,
@@ -50,6 +49,7 @@ const MOCK_CAKES = [
     stock: 12,
     seller_id: 'usr-2',
     seller_name: 'Malabar Whisk',
+    seller_location: 'Vythiri',
     reviews: [
       { user: 'Rahul', rating: 4.7, comment: 'Rich, moist and smells incredible.' }
     ]
@@ -58,7 +58,7 @@ const MOCK_CAKES = [
     id: 'cake-3',
     name: 'Coconut Mango Fusion Gateau',
     description: 'Fluffy vanilla sponge layered with fresh Kerala coconut cream frosting and pure Alphonso mango pulp.',
-    price: 649.00,
+    price: 899.00,
     image_url: 'https://images.unsplash.com/photo-1616541823729-00fe0aacd32c?w=600&auto=format&fit=crop&q=80',
     category: 'Fruit & Berries',
     rating: 4.9,
@@ -67,13 +67,14 @@ const MOCK_CAKES = [
     stock: 5,
     seller_id: 'usr-2',
     seller_name: 'Malabar Whisk',
+    seller_location: 'Meppadi',
     reviews: []
   },
   {
     id: 'cake-4',
     name: 'Vegan Ela Ada Custard Cake',
     description: 'Plant-based dessert inspired by Kerala\'s traditional Ela Ada, prepared with roasted rice flour, dark jaggery syrup, and grated coconut.',
-    price: 549.00,
+    price: 850.00,
     image_url: 'https://images.unsplash.com/photo-1535141192574-5d4897c13636?w=600&auto=format&fit=crop&q=80',
     category: 'Vegan & Healthy',
     rating: 4.7,
@@ -82,6 +83,7 @@ const MOCK_CAKES = [
     stock: 6,
     seller_id: 'usr-2',
     seller_name: 'Malabar Whisk',
+    seller_location: 'Sulthan Bathery',
     reviews: [
       { user: 'Sreejith', rating: 4.7, comment: 'Tastes exactly like traditional Ela Ada! Genius creation.' }
     ]
@@ -90,7 +92,7 @@ const MOCK_CAKES = [
     id: 'cake-5',
     name: 'Jackfruit Caramel Crunch',
     description: 'Sweet local Wayanad jackfruit preserves folded into buttery cake sponge, topped with crunchy caramelized cashew praline.',
-    price: 520.00,
+    price: 799.00,
     image_url: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?w=600&auto=format&fit=crop&q=80',
     category: 'Caramel & Crunch',
     rating: 4.6,
@@ -99,6 +101,87 @@ const MOCK_CAKES = [
     stock: 4,
     seller_id: 'usr-2',
     seller_name: 'Malabar Whisk',
+    seller_location: 'Mananthavady',
+    reviews: []
+  },
+  {
+    id: 'cake-6',
+    name: 'Edakkal Chocolate Almond Fudge',
+    description: 'Decadent chocolate fudge layers topped with roasted slivered almonds, inspired by Edakkal Cave rock trails.',
+    price: 950.00,
+    image_url: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80',
+    category: 'Chocolate',
+    rating: 4.9,
+    discount: 12,
+    special_sale: true,
+    stock: 7,
+    seller_id: 'usr-4',
+    seller_name: 'Edakkal Sweets',
+    seller_location: 'Ambalavayal',
+    reviews: []
+  },
+  {
+    id: 'cake-7',
+    name: 'Premium Velvet Cream Cheese',
+    description: 'Vibrant crimson velvet crumb cake layered with thick sweet cream cheese frosting and micro flowers.',
+    price: 1100.00,
+    image_url: 'https://images.unsplash.com/photo-1616541823729-00fe0aacd32c?w=600&auto=format&fit=crop&q=80',
+    category: 'Classic Bakes',
+    rating: 4.8,
+    discount: 0,
+    special_sale: false,
+    stock: 5,
+    seller_id: 'usr-5',
+    seller_name: 'Wayanad Baking Co',
+    seller_location: 'Sulthan Bathery',
+    reviews: []
+  },
+  {
+    id: 'cake-8',
+    name: 'Vythiri Fresh Strawberry Gateau',
+    description: 'Highlands-style vanilla sponge layered with sliced mountain strawberries and light Chantilly whipped cream.',
+    price: 999.00,
+    image_url: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&auto=format&fit=crop&q=80',
+    category: 'Fruit & Berries',
+    rating: 4.9,
+    discount: 8,
+    special_sale: true,
+    stock: 9,
+    seller_id: 'usr-6',
+    seller_name: 'Western Ghats Cakery',
+    seller_location: 'Vythiri',
+    reviews: []
+  },
+  {
+    id: 'cake-9',
+    name: 'Meppadi Mango Custard Delight',
+    description: 'Creamy cold-set mango custard layered between tea-infused butter cake crumbs, topped with honey glaze.',
+    price: 850.00,
+    image_url: 'https://images.unsplash.com/photo-1535141192574-5d4897c13636?w=600&auto=format&fit=crop&q=80',
+    category: 'Fruit & Berries',
+    rating: 4.7,
+    discount: 0,
+    special_sale: false,
+    stock: 10,
+    seller_id: 'usr-7',
+    seller_name: 'Tea Hills Bakery',
+    seller_location: 'Meppadi',
+    reviews: []
+  },
+  {
+    id: 'cake-10',
+    name: 'Nutella Ferrero Rocher Fusion',
+    description: 'Rich dark chocolate cake filled with smooth hazelnut Nutella spread and crunchy Ferrero chocolate bits.',
+    price: 1250.00,
+    image_url: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?w=600&auto=format&fit=crop&q=80',
+    category: 'Chocolate',
+    rating: 4.8,
+    discount: 15,
+    special_sale: true,
+    stock: 6,
+    seller_id: 'usr-8',
+    seller_name: 'Hilltop Oven Bakes',
+    seller_location: 'Mananthavady',
     reviews: []
   }
 ];
@@ -113,6 +196,14 @@ export const AppProvider = ({ children }) => {
   const [cakes, setCakes] = useState([]);
   const [cart, setCart] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState(() => {
+    return localStorage.getItem('delivery_location') || 'Kalpetta';
+  });
+
+  const updateLocation = (loc) => {
+    setSelectedLocation(loc);
+    localStorage.setItem('delivery_location', loc);
+  };
   const [coupons, setCoupons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isCloudMode, setIsCloudMode] = useState(false);
@@ -166,7 +257,7 @@ export const AppProvider = ({ children }) => {
   const loadLocalData = () => {
     // Cakes
     const localCakes = localStorage.getItem('local_cakes');
-    if (localCakes) {
+    if (localCakes && JSON.parse(localCakes).length === MOCK_CAKES.length) {
       setCakes(JSON.parse(localCakes));
     } else {
       localStorage.setItem('local_cakes', JSON.stringify(MOCK_CAKES));
@@ -602,6 +693,8 @@ export const AppProvider = ({ children }) => {
       loading,
       isCloudMode,
       errorMsg,
+      selectedLocation,
+      updateLocation,
       login,
       registerUser,
       signInWithGoogle,

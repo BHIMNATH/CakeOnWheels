@@ -1,9 +1,15 @@
+/**
+ * @file Cart.jsx
+ * @description Shopping cart and delivery fee adjustment manager.
+ * Supports line item modifications, coupon codes, and dynamic delivery fee zoning.
+ */
 import React, { useState, useMemo } from 'react';
 import { useApp } from '../context/AppContext';
 import { ShoppingBag, Trash2, ArrowRight, ArrowLeft, Percent, Check } from 'lucide-react';
 
 export default function Cart({ onNavigate, onSetTotals }) {
-  const { cart, updateCartQuantity, removeFromCart, applyCouponCode } = useApp();
+  // Access shopping cart utilities and location states from global context
+  const { cart, updateCartQuantity, removeFromCart, applyCouponCode, selectedLocation } = useApp();
   const [couponCode, setCouponCode] = useState('');
   const [activeCoupon, setActiveCoupon] = useState(null);
   const [couponError, setCouponError] = useState('');
@@ -15,12 +21,52 @@ export default function Cart({ onNavigate, onSetTotals }) {
         ? item.cake.price * (1 - item.cake.discount / 100)
         : item.cake.price;
       
-      const surcharge = item.weight === '2 lbs' ? 350.00 : item.weight === '5 lbs' ? 1000.00 : 0;
+      const surcharge = item.weight === '1 Kg' ? 350.00 : item.weight === '2 Kg' ? 800.00 : 0;
       return acc + (basePrice + surcharge) * item.quantity;
     }, 0);
   }, [cart]);
 
-  const deliveryFee = subtotal > 499 || subtotal === 0 ? 0.00 : 49.00;
+  /**
+   * Dynamic Delivery Fee zone adjustments:
+   * - Local Town zone: ₹39 delivery fee if the baker's shop matches buyer location.
+   * - Outstation zone: ₹89 delivery fee if the baker's shop is cross-town.
+   * - Weight surcharge: Add +₹20 handler fee for heavier 2 Kg cake transit.
+   * - Free delivery threshold: Orders above ₹599 receive completely free delivery.
+   */
+  const deliveryFee = useMemo(() => {
+    if (subtotal === 0) return 0;
+    
+    let baseDelivery = 39.00;
+    let hasCrossTown = false;
+    let hasHeavyCake = false;
+
+    cart.forEach(item => {
+      if (item.cake.seller_location !== selectedLocation) {
+        hasCrossTown = true;
+      }
+      if (item.weight === '2 Kg') {
+        hasHeavyCake = true;
+      }
+    });
+
+    if (hasCrossTown) {
+      baseDelivery = 89.00;
+    }
+
+    if (hasHeavyCake) {
+      baseDelivery += 20.00;
+    }
+
+    if (subtotal > 599) {
+      return 0.00;
+    } else if (subtotal > 399) {
+      return baseDelivery / 2;
+    }
+
+    return baseDelivery;
+  }, [cart, subtotal, selectedLocation]);
+
+  const gstAmount = useMemo(() => subtotal * 0.05, [subtotal]);
 
   const discountAmount = useMemo(() => {
     if (!activeCoupon) return 0;
@@ -30,7 +76,7 @@ export default function Cart({ onNavigate, onSetTotals }) {
     return Math.min(subtotal, activeCoupon.discount_value);
   }, [activeCoupon, subtotal]);
 
-  const total = subtotal - discountAmount + deliveryFee;
+  const total = subtotal - discountAmount + deliveryFee + gstAmount;
 
   const handleApplyCoupon = (e) => {
     e.preventDefault();
@@ -51,6 +97,7 @@ export default function Cart({ onNavigate, onSetTotals }) {
     onSetTotals({
       subtotal,
       deliveryFee,
+      gstAmount,
       discountAmount,
       total,
       couponCode: activeCoupon ? activeCoupon.code : null
@@ -87,7 +134,7 @@ export default function Cart({ onNavigate, onSetTotals }) {
             const basePrice = item.cake.discount > 0 
               ? item.cake.price * (1 - item.cake.discount / 100)
               : item.cake.price;
-            const surcharge = item.weight === '2 lbs' ? 350.00 : item.weight === '5 lbs' ? 1000.00 : 0;
+            const surcharge = item.weight === '1 Kg' ? 350.00 : item.weight === '2 Kg' ? 800.00 : 0;
             const itemUnitPrice = basePrice + surcharge;
             
             return (
@@ -201,6 +248,11 @@ export default function Cart({ onNavigate, onSetTotals }) {
             <div className="flex-between">
               <span>Delivery Fee</span>
               <span>{deliveryFee === 0 ? 'FREE' : `₹${deliveryFee.toFixed(0)}`}</span>
+            </div>
+
+            <div className="flex-between">
+              <span>GST & Restaurant Charges (5%)</span>
+              <span>₹{gstAmount.toFixed(0)}</span>
             </div>
 
             {deliveryFee > 0 && (

@@ -3,9 +3,9 @@ import { useApp } from '../context/AppContext';
 import { Star, ShoppingCart, ArrowLeft, ShieldAlert, Award, Calendar } from 'lucide-react';
 
 const WEIGHTS = [
-  { label: '1 lbs', surcharge: 0 },
-  { label: '2 lbs', surcharge: 350.00 },
-  { label: '5 lbs', surcharge: 1000.00 }
+  { label: '0.5 Kg', surcharge: 0 },
+  { label: '1 Kg', surcharge: 350.00 },
+  { label: '2 Kg', surcharge: 800.00 }
 ];
 
 export default function CakeDetails({ cakeId, onBack, onNavigate }) {
