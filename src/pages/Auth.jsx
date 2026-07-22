@@ -2,8 +2,6 @@
  * @file Auth.jsx
  * @description Customer/Buyer Authentication portal.
  * Integrates email login/signup and Google OAuth Sign-In handlers.
- * 
- * Developed by Aswin Bhim Nath
  */
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';

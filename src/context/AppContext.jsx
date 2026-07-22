@@ -3,8 +3,6 @@
  * @description Application Global State & Data Context.
  * Manages marketplace datasets, shopping cart item states, order queues,
  * and user authentication profiles (supporting Supabase Cloud sync & local storage persistence).
- * 
- * Developed by Aswin Bhim Nath
  */
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { supabase, isSupabaseConfigured } from '../supabaseClient';
@@ -32,6 +30,7 @@ const MOCK_CAKES = [
     stock: 8,
     seller_id: 'usr-2',
     seller_name: 'Malabar Whisk',
+    seller_location: 'Kalpetta',
     reviews: [
       { user: 'Bheem', rating: 5, comment: 'Authentic forest honey flavor! Perfect sweetness.' },
       { user: 'Anjali', rating: 4.8, comment: 'Highly recommended for Kerala tea-time.' }
@@ -50,6 +49,7 @@ const MOCK_CAKES = [
     stock: 12,
     seller_id: 'usr-2',
     seller_name: 'Malabar Whisk',
+    seller_location: 'Vythiri',
     reviews: [
       { user: 'Rahul', rating: 4.7, comment: 'Rich, moist and smells incredible.' }
     ]
@@ -67,6 +67,7 @@ const MOCK_CAKES = [
     stock: 5,
     seller_id: 'usr-2',
     seller_name: 'Malabar Whisk',
+    seller_location: 'Meppadi',
     reviews: []
   },
   {
@@ -82,6 +83,7 @@ const MOCK_CAKES = [
     stock: 6,
     seller_id: 'usr-2',
     seller_name: 'Malabar Whisk',
+    seller_location: 'Sulthan Bathery',
     reviews: [
       { user: 'Sreejith', rating: 4.7, comment: 'Tastes exactly like traditional Ela Ada! Genius creation.' }
     ]
@@ -99,6 +101,7 @@ const MOCK_CAKES = [
     stock: 4,
     seller_id: 'usr-2',
     seller_name: 'Malabar Whisk',
+    seller_location: 'Mananthavady',
     reviews: []
   }
 ];

@@ -2,8 +2,6 @@
  * @file Checkout.jsx
  * @description Delivery Checkout validation form.
  * Captures recipient contact info, delivery dates, times, and pre-populates locations.
- * 
- * Developed by Aswin Bhim Nath
  */
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';

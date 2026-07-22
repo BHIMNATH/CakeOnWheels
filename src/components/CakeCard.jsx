@@ -3,7 +3,7 @@ import { Star, ShoppingCart, Percent } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 export default function CakeCard({ cake, onSelect }) {
-  const { addToCart } = useApp();
+  const { addToCart, selectedLocation } = useApp();
 
   const discountedPrice = cake.discount > 0 
     ? (cake.price * (1 - cake.discount / 100)).toFixed(2)
@@ -54,6 +54,27 @@ export default function CakeCard({ cake, onSelect }) {
           </div>
         )}
 
+        {/* Nearest Baker Indicator */}
+        {cake.seller_location === selectedLocation && (
+          <div style={{
+            position: 'absolute',
+            bottom: '12px',
+            left: '12px',
+            backgroundColor: '#10b981',
+            color: 'white',
+            padding: '4px 10px',
+            borderRadius: '50px',
+            fontSize: '0.75rem',
+            fontWeight: 'bold',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px'
+          }}>
+            <span>📍 Nearest Baker</span>
+          </div>
+        )}
+
         {/* Special Sale Indicator */}
         {cake.special_sale && (
           <div style={{
@@ -76,8 +97,8 @@ export default function CakeCard({ cake, onSelect }) {
       {/* Product Content Details */}
       <div style={{ padding: '24px', flexGrow: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <div className="flex-between">
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 500, letterSpacing: '0.5px' }}>
-            BY {cake.seller_name.toUpperCase()}
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.5px' }}>
+            BY {cake.seller_name.toUpperCase()} ({cake.seller_location})
           </span>
           <div className="flex-center gap-sm" style={{ color: 'var(--secondary)', fontSize: '0.9rem', fontWeight: 600 }}>
             <Star size={16} fill="var(--secondary)" />

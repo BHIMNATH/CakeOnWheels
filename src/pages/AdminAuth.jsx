@@ -2,8 +2,6 @@
  * @file AdminAuth.jsx
  * @description Dedicated Administrator Login Portal.
  * Limits administrative console operations to authorized staff.
- * 
- * Developed by Aswin Bhim Nath
  */
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
